@@ -1,0 +1,82 @@
+.popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup_inner {
+  position: absolute;
+  left: 25%;
+  right: 25%;
+  top: 10%;
+  bottom: 10%;
+  margin: auto;
+  background: white;
+  text-align: center;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  div {
+    width: 100%;
+  }
+
+  h1 {
+    margin: 0 auto 5% auto;
+    font-size: 1.8em;
+  }
+
+  label {
+    margin-right: 20px;
+  }
+
+  input {
+    width: 60%;
+    &::placeholder {
+      font-style: italic;
+    }
+  }
+
+  .searchList {
+    width: 100%;
+    height: 100%;
+    border: 1px solid red;
+    overflow-y: scroll;
+
+    .book {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+
+      .allInfo {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .mainInfo {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+
+          .title {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          }
+        }
+      }
+    }
+  }
+
+  button {
+    margin-top: 10px;
+  }
+}

@@ -1,0 +1,50 @@
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100vw;
+  height: 10vh;
+  padding: 10px;
+
+  div {
+    background-image: url("%PUBLIC_URL%/../../media/logo.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 10%;
+    height: 100%;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 80%;
+    height: auto;
+    font-size: 2em;
+
+    li {
+      list-style-type: none;
+      margin-right: 60px;
+
+      button {
+        border: none;
+        background: none !important;
+        cursor: pointer;
+
+        &:focus {
+          border: none;
+        }
+      }
+    }
+  }
+
+  .addBook {
+    display: none;
+  }
+
+  .show {
+    display: block !important;
+  }
+}
