@@ -3,11 +3,11 @@ import request from "superagent";
 import SearchList from "./SearchList";
 
 class PopUp extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      searchField: "",
-      books: []
+      searchField: "", 
+      books: [],
     };
   }
 
@@ -21,18 +21,20 @@ class PopUp extends Component {
         .query({
           key: "AIzaSyAUkRtxNp9yHMsUMQ7bl-PoT2WGyUZvkZo",
           q: this.state.searchField,
-          maxResults: 10
+          maxResults: 40
         })
         .then(data => {
           this.setState({
             books: [...data.body.items]
           });
         });
-      console.log(this.state.books);
     }
   };
 
   componentDidUpdate(prevProps, prevState) {
+    if(prevState.readList !== this.state.readList){
+      alert(this.state.readList);
+    }
     if (prevState.searchField !== this.state.searchField) {
       this.accessAPI();
     }
@@ -42,7 +44,7 @@ class PopUp extends Component {
     return (
       <div className="popup">
         <div className="popup_inner">
-          <div>
+          <div className="booksHere">
             <h1>Add to {this.props.text}</h1>
             <div>
               <label htmlFor="searchAPI">Search :</label>
@@ -54,7 +56,7 @@ class PopUp extends Component {
               />
             </div>
           </div>
-          <SearchList books={this.state.books} />
+          <SearchList books={this.state.books} readList={this.props.readList} wantList={this.props.wantList} currentPage={this.props.currentPage}/>
           <button onClick={this.props.closePopUp}>Close</button>
         </div>
       </div>

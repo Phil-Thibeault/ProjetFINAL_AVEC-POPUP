@@ -13,14 +13,50 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      currentPage: <ReadList />,
+      currentPage: <ReadList wantList={this.wantList}/>,
       showButton: true,
       list: "Owned List",
-      showPopUp: false
+      showPopUp: false,
+      readList: [],
+      wantList: []
     };
 
     this.changePage = this.changePage.bind(this);
     this.popUp = this.popUp.bind(this);
+    this.updateReadList = this.updateReadList.bind(this);
+    this.updateWishList = this.updateWishList.bind(this);
+  }
+
+  updateReadList(array){
+    let books = this.state.readList;
+
+    books.push(array);
+
+    this.setState({
+      readList: books,
+    });
+
+    this.setState({
+      currentPage: <ReadList readList={this.state.readList}/>,
+      showButton: true,
+      list: "Owned List"
+    });
+  }
+
+  updateWishList(array){
+    let books = this.state.wantList;
+
+    books.push(array);
+
+    this.setState({
+      wantList: books,
+    });
+
+    this.setState({
+      currentPage: <WantList wantList={this.state.wantList}/>,
+      showButton: true,
+      list: "Wish List"
+    });
   }
 
   changePage(page) {
@@ -28,14 +64,14 @@ class App extends Component {
       case 1:
       default:
         this.setState({
-          currentPage: <ReadList />,
+          currentPage: <ReadList readList={this.state.readList}/>,
           showButton: true,
           list: "Owned List"
         });
         break;
       case 2:
         this.setState({
-          currentPage: <WantList />,
+          currentPage: <WantList wantList={this.state.wantList}/>,
           showButton: true,
           list: "Wish List"
         });
@@ -66,7 +102,7 @@ class App extends Component {
         />
         {this.state.currentPage}
         {this.state.showPopUp ? (
-          <PopUp text={this.state.list} closePopUp={this.popUp} />
+          <PopUp text={this.state.list} closePopUp={this.popUp} readList={this.updateReadList} wantList={this.updateWishList} currentPage={this.state.currentPage.type.name}/>
         ) : null}
         <Footer />
       </div>
