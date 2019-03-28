@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import {Link} from 'react-router-dom';
+
+import * as ROUTES from '../../constants/routes';
 
 class Nav extends Component {
   constructor() {
@@ -43,6 +46,9 @@ class Nav extends Component {
             <button className="links" onClick={this.handleClick} id="3">
               BookList Recommends
             </button>
+          </li>
+          <li>
+            <Link to={ROUTES.SIGN_IN}>Sign In</Link>
           </li>
         </ul>
         {button}

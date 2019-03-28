@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Nav from "./Components/Nav/Nav";
 import ReadList from "./Components/ReadList/ReadList";
@@ -7,13 +8,17 @@ import Recommendations from "./Components/Recommendations/Recommendations";
 import PopUp from "./Components/PopUp/PopUp";
 import Footer from "./Components/Footer/Footer";
 
+import * as ROUTES from "../src/constants/routes";
+
 import "./Assets/css/default.min.css";
+import SignIn from "./Components/SignIn/SignIn";
+import SignUp from "./Components/SignUp/index";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      currentPage: <ReadList wantList={this.wantList}/>,
+      currentPage: <ReadList wantList={this.wantList} />,
       showButton: true,
       list: "Owned List",
       showPopUp: false,
@@ -27,33 +32,33 @@ class App extends Component {
     this.updateWishList = this.updateWishList.bind(this);
   }
 
-  updateReadList(array){
+  updateReadList(array) {
     let books = this.state.readList;
 
     books.push(array);
 
     this.setState({
-      readList: books,
+      readList: books
     });
 
     this.setState({
-      currentPage: <ReadList readList={this.state.readList}/>,
+      currentPage: <ReadList readList={this.state.readList} />,
       showButton: true,
       list: "Owned List"
     });
   }
 
-  updateWishList(array){
+  updateWishList(array) {
     let books = this.state.wantList;
 
     books.push(array);
 
     this.setState({
-      wantList: books,
+      wantList: books
     });
 
     this.setState({
-      currentPage: <WantList wantList={this.state.wantList}/>,
+      currentPage: <WantList wantList={this.state.wantList} />,
       showButton: true,
       list: "Wish List"
     });
@@ -64,14 +69,14 @@ class App extends Component {
       case 1:
       default:
         this.setState({
-          currentPage: <ReadList readList={this.state.readList}/>,
+          currentPage: <ReadList readList={this.state.readList} />,
           showButton: true,
           list: "Owned List"
         });
         break;
       case 2:
         this.setState({
-          currentPage: <WantList wantList={this.state.wantList}/>,
+          currentPage: <WantList wantList={this.state.wantList} />,
           showButton: true,
           list: "Wish List"
         });
@@ -95,14 +100,26 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Nav
-          changePage={this.changePage}
-          showButton={this.state.showButton}
-          popUp={this.popUp}
-        />
+        <Router>
+          <div>
+            <Nav
+              changePage={this.changePage}
+              showButton={this.state.showButton}
+              popUp={this.popUp}
+            />
+            <Route path={ROUTES.SIGN_IN} component={SignIn} />
+            <Route path={ROUTES.SIGN_UP} component={SignUp} />
+          </div>
+        </Router>
         {this.state.currentPage}
         {this.state.showPopUp ? (
-          <PopUp text={this.state.list} closePopUp={this.popUp} readList={this.updateReadList} wantList={this.updateWishList} currentPage={this.state.currentPage.type.name}/>
+          <PopUp
+            text={this.state.list}
+            closePopUp={this.popUp}
+            readList={this.updateReadList}
+            wantList={this.updateWishList}
+            currentPage={this.state.currentPage.type.name}
+          />
         ) : null}
         <Footer />
       </div>
